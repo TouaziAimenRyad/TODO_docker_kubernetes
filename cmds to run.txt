@@ -1,0 +1,30 @@
+build images 
+    cd client   sudo docker build -t touaziaimenryad/client:version .
+    cd server   sudo docker build -t touaziaimenryad/server:version .
+
+
+push images
+    sudo docker -u touaziaimenryad 
+    sudo docker push touaziaimenryad/client:version
+    sudo docker push touaziaimenryad/server:version
+
+not that you need to update deployment files of kubernetes update the image version
+
+kubernetes
+    minikube start
+    run yml file and deploy using settings in k8s
+        minikube kubectl -- apply -f k8s
+    postgres generate key
+        minikube kubectl -- create secret generic pgpassword --from-literal PGPASSWORD=12345test
+    check key
+        minikube kubectl -- get secrets
+    ingress controller startup and istallation
+        minikube kubectl -- apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.7.0/deploy/static/provider/cloud/deploy.yaml
+    check kubernetes services
+        minikube kubectl -- get pods
+        minikube kubectl -- get pv
+        minikube kubectl -- get services
+        minikube kubectl -- get deployment
+    
+    undeploy apply
+        minikube kubectl -- delete -f k8s
