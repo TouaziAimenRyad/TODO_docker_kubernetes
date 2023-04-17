@@ -11,20 +11,56 @@ push images
 not that you need to update deployment files of kubernetes update the image version
 
 kubernetes
-    minikube start
-    run yml file and deploy using settings in k8s
-        minikube kubectl -- apply -f k8s
+    minikube start --driver=virtualbox
+    minikube addons enable ingress
+    minikube addons enable ingress-dns
+    
+    wait untill the ingress is up use this to check 
+        minikube kubectl -- get pods -n ingress-nginx
+    
     postgres generate key
         minikube kubectl -- create secret generic pgpassword --from-literal PGPASSWORD=12345test
+    
     check key
         minikube kubectl -- get secrets
-    ingress controller startup and istallation
+    
+    ingress startup with minikube don't use !!!!
+        minikube addons enable ingress
+
+    ingress controller startup and istallation rules dont' use !!!! 
         minikube kubectl -- apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.7.0/deploy/static/provider/cloud/deploy.yaml
+    
+    
+    verifiy if ingress is good and running dont' use !!!! 
+        minikube kubectl -- get pods -n kube-system
+    
+    run yml file and deploy using settings in k8s
+        minikube kubectl -- apply -f k8s
+    
     check kubernetes services
         minikube kubectl -- get pods
         minikube kubectl -- get pv
         minikube kubectl -- get services
         minikube kubectl -- get deployment
     
+    get ingress ip dont' use !!!! 
+        minikube kubectl -- get ingress
+    
+    Enable a tunnel for Minikube:
+        minikube addons enable ingress-dns dont' use !!!! 
+        minikube tunnel
+
+    
     undeploy apply
         minikube kubectl -- delete -f k8s
+        minikube kubectl -- delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.7.0/deploy/static/provider/cloud/deploy.yaml
+        
+
+try this to see the app
+minikube addons enable ingress
+minikube addons open ingress
+kubectl get ingress //to get ip
+minikube ip
+
+kubectl describe ingress web
+kubectl describe service web
